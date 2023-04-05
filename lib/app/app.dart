@@ -16,10 +16,11 @@ class FlavorsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Flavors',
+      debugShowCheckedModeBanner: appEnv == AppEnv.dev ? true : false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomePage(),
+      home: HomePage(appEnv: appEnv),
     );
   }
 }
