@@ -1,0 +1,25 @@
+
+
+================================= Dev Start =================================
+
+/// APK
+flutter build apk --flavor dev -t lib/main_dev.dart
+
+
+/// Appbundle
+flutter build appbundle --flavor dev -t lib/main_dev.dart
+
+---------------------------------- Dev Ends ----------------------------------
+
+
+
+================================= Prod Start =================================
+
+/// APK
+flutter build apk --flavor prod -t lib/main_prod.dart
+
+
+/// Appbundle
+flutter build appbundle --flavor prod -t lib/main_prod.dart
+
+---------------------------------- Prod Ends ----------------------------------

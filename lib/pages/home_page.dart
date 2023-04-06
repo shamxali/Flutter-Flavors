@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +14,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  CollectionReference users = FirebaseFirestore.instance.collection('flavors');
+  CollectionReference flavorsRef = FirebaseFirestore.instance.collection('flavors');
 
   Future<void> addFlavors() {
-    return users
-        .add({'env_name': describeEnum(widget.appEnv).toUpperCase()})
-        .then((value) => print("User Added"))
-        .catchError((error) => print("Failed to add user: $error"));
+    return flavorsRef
+        .add({
+          'env_name': describeEnum(widget.appEnv).toUpperCase(),
+          'platform': Platform.isIOS ? 'IOS' : 'Android',
+        })
+        .then((value) => debugPrint("Flavor added successfully"))
+        .catchError((error) => debugPrint("Failed to add flavor: $error"));
   }
 
   @override
@@ -30,9 +35,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(describeEnum(widget.appEnv).toUpperCase())),
+      appBar: AppBar(
+        title: Text(
+          'Flutter Flavors',
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 18),
+        ),
+      ),
       body: Center(
-        child: Text('Flutter Flavors'),
+        child: Text(
+          'Flavor : ${describeEnum(widget.appEnv).toUpperCase()}',
+        ),
       ),
     );
   }
